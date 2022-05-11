@@ -26,9 +26,10 @@ class Player:
         self (player): an instance of player.
          """
         
+        self.card = []
         self.guess = True
         self.game_in_progress = True
-        self.initial_score = 300
+        self.score = 0
         self.total_score = 300
         
         for i in range(13):
