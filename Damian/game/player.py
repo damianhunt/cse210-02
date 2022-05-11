@@ -40,18 +40,18 @@ class Player:
         Args:
             self (player): an instance of player.
         """
-        self.initial_card()
+        
         while self.game_in_progress:
-
+            self.initial_card()
             self.obtain_inputs()
             self.card_draw()
             self.do_updates()
             self.do_outputs()
 
     def initial_card(self):
-        card = self.card
-        Card.draw()
-        initial_card = card.value
+        #card = self.card
+        Card.draw(self)
+        initial_card = self.value
         print (f"Your card is: {initial_card}")
         return initial_card
 
@@ -62,16 +62,16 @@ class Player:
         Args:
             self (player): an instance of player.
         """
-        print (f"Your card is: {self.initial_card}")
+        #print (f"Your card is: {self.initial_card}")
 
         guess = input('Higher or Lower: [H/L] ').upper()
         self.guess = guess
         
 
     def card_draw(self):
-        card = self.card
-        Card.draw()
-        current_card = card.value
+        #card = self
+        Card.draw(self)
+        current_card = self.value
         print (f"Next card is: {current_card}")
         return current_card
 
