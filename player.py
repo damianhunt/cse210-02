@@ -25,16 +25,16 @@ class Player:
         Args:
         self (player): an instance of player.
          """
-        
-        self.card = []
-        self.guess = True
+        ##initial.card = []
+        ##self.card = []
+        self.guess = ""
         self.game_in_progress = True
         self.score = 0
         self.total_score = 300
         
-        for i in range(13):
-            card = Card()
-            self.guess.append(card)
+        ##for i in range(13):
+        ##    card = Card()
+        ##    self.card.append(card)
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -42,12 +42,13 @@ class Player:
         Args:
             self (player): an instance of player.
         """
-
+        print(f"The card is: {c}")
         while self.game_in_progress:
-
+            ##Card.draw = self.card
+            ##Card.draw()
             self.obtain_inputs()
-            self.obtain_updates()
-            self.obtain_outputs()
+            self.do_updates()
+            self.do_outputs()
 
         
     def obtain_inputs(self):
@@ -56,13 +57,16 @@ class Player:
         Args:
             self (player): an instance of player.
         """
+        
+
         guess = input('Higher or Lower: [H/L] ').upper()
         self.guess = (guess == 'H')
         
         play_game = input('Play again? [Y/N] ').upper()
         self.game_in_progress = (play_game == 'Y')
 
-    def obtain_updates(self):
+
+    def do_updates(self):
         """Updates the player's score.
         
         Args:
@@ -77,7 +81,7 @@ class Player:
             self.initial_score += card.points
         self.total_score += self.initial_score
         
-    def obtain_outputs(self):
+    def do_outputs(self):
         """Displays the score. Also asks the player if they want to roll again. 
 
         Args:
