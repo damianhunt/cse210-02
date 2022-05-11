@@ -73,7 +73,7 @@ class Player:
         for i in range(len(self.guess)):
             card = self.guess[i]
             card.guess()
-            self.score += card.points
+            self.initial_score += card.points
         self.total_score += self.initial_score
         
     def obtain_outputs(self):
@@ -92,5 +92,5 @@ class Player:
 
         print(f"You guessed: {values}")
         print(f"Your score is: {self.total_score}\n")
-        self.game_in_progress == (self.score > 0)    
+        self.game_in_progress == (self.initial_score> 0)    
         
