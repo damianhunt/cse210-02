@@ -4,9 +4,10 @@ class Player:
     
     def __init__(self):
         
+        self.card = []
         self.guess = True
         self.game_in_progress = True
-        self.initial_score = 300
+        self.score = 0
         self.total_score = 300
 
     def start_game(self):
@@ -27,6 +28,18 @@ class Player:
 
     def obtain_updates(self):
 
-         if not self.game_in_progress:
+        if not self.game_in_progress:
             return 
+
+        for i in range(len(self.card)):
+            card = self.card[i]
+            card.draw()
+            self.score += card.points 
+        self.total_score += self.score
+        self.score = 0
+
+    def obtain_outputs(self):
+
+        if not self.game_in_progress:
+            return
         
