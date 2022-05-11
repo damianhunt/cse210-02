@@ -8,7 +8,7 @@ class Card:
         self.value = 0
 
     def draw_card(self):
-        self.value = random.randint(1, 13)
+        self.value = random.randint(1, 13) # random integer generation
         
         
         
