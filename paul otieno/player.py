@@ -1,6 +1,6 @@
 import random
 
-class Card:
+class Player:
 
     def __init__(self):
         

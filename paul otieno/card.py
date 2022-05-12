@@ -1,7 +1,7 @@
 from player import Player
     
 
-class Player:
+class Card:
 
     def __init__(self):
         """
