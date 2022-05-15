@@ -24,10 +24,9 @@ class Player:
         self.is_playing = True
         self.score = 0
         self.total_score = 300
+        first_card = 0
+        card = 0
 
-        for i in range(5):
-            card = Card()
-            self.cards.append(card)
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -40,6 +39,7 @@ class Player:
             self.get_inputs()
             self.draw_card()
             self.do_updates()
+            self.guess_card()
             self.do_outputs()
         
 
@@ -49,6 +49,7 @@ class Player:
         first_card = random.randint(1, 13)
         if self.total_score == 300:
             print(f"First Card: {first_card}")
+        return first_card
 
 
     def get_inputs(self):
@@ -76,32 +77,30 @@ class Player:
         """
         if not self.is_playing:
             return
+        guess_card = input("Select High or Lower [H/L]: ").lower
+        #current_card = Card.draw(self)
+        return guess_card
+        #if current_card >= Player.first_card(self) and guess_card == "H":
+        #    self.score += 100
+        #elif current_card <= Player.first_card(self) and guess_card == "H":
+        #    self.score -= 70
+        #elif current_card >= Player.first_card(self) and guess_card == "L":
+        #    self.score -= 75
+        #elif current_card <= Player.first_card(self) and guess_card == "L":
+        #    self.score += 100
 
-        guess_card = input("Select High or Lower [H/L]: ")
-        current_card = card.roll(self) 
-        if current_card >= self.card_number and guess_card == "H":
-            self.score += 100
-        elif current_card <= self.card_number and guess_card == "H":
-            self.score -= 70
-        elif current_card >= self.card_number and guess_card == "L":
-            self.score -= 75
-        elif current_card <= self.card_number and guess_card == "L":
-            self.score += 100
-        
-        self.total_score += self.score
 
-        values = ""
-        current_card = card.roll() 
-        current_card.append(self.cards)
-        card = self.cards[-1]
-        values += f"{card.value} "
-        print(f"Your new card: {values}")
-        #for i in range(len(self.cards)):
-        #    card = self.cards[i]
-        #    card.draw()
-        #    self.score += card.points 
-        #self.total_score += self.score
-        #self.score = 0
+    def guess_card(self):
+        if not self.is_playing:
+            return
+
+        if Player.do_updates(self) == 'h' and Player.current_card > Player.first_card(self):
+            return True
+        elif Player.do_updates(self) == 'l' and Player.current_card < Player.first_card(self):
+            return True
+        else:
+            return False
+
 
     def do_outputs(self):
         """Displays the dice and the score. Also asks the player if they want to roll again. 
@@ -112,29 +111,15 @@ class Player:
         if not self.is_playing:
             return
 
-        #values = ""
-        #current_card = card.roll() 
-        #current_card.append(self.cards)
-        #card = self.cards[-1]
-        #values += f"{card.value} "
+        check_guess_result = ''
+        #self.total_score += self.score
+        if Player.guess_card(self) == True:
+            self.score = 100
+        else: 
+            self.score = -75   
 
-        #self.draw()
-        #guess_card = input("Select High or Lower [H/L]: ")
-        #second_number = random.randint(1, 13)
-        #if second_number >= self.card_number and guess_card == "H":
-        #    self.score += 100
-        #elif second_number <= self.card_number and guess_card == "H":
-        #    self.score -= 70
-        #elif second_number >= self.card_number and guess_card == "L":
-        #    self.score -= 75
-        #elif second_number <= self.card_number and guess_card == "L":
-        #    self.score += 100
-        #print(f"The next card was: {second_number}")
-        #print(f"Your acore is: {self.score}") 
-        
-        #print(f"The next card was: {second_number}")
-        #print(f"Your acore is: {self.total_score}")        
-       
+        self.total_score += self.score
+
         
         print(f"Your score is: {self.total_score}\n")
-        self.is_playing == (self.score > 0)
+        self.is_playing == (self.total_score > 0)
