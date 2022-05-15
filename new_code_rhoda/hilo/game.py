@@ -1,3 +1,4 @@
+from re import U
 from hilo.card import Card
 
 
@@ -15,6 +16,8 @@ class Game:
         self.is_playing = True
         self.current_card = Card()
         self.next_card = Card()
+        self.total_score = 0
+        self.check_guess = True
       
         
     def play_game(self):
@@ -24,22 +27,22 @@ class Game:
             self (Game): an instance of Game.
         """
         while self.is_playing:
-            self.display_instructions
+            self.display_instructions()
             self.prompt_for_guess()
-            self.check_guess()
             self.update_score()
-            self.print_score
-            self.play_again
+            self.print_score()
+            self.play_again()
 
     
-    def display_instructions():
+    def display_instructions(self):
         """Prints instructions for the user to see and know what to do
            Args:
             self (Game): an instance of Game.
         """
+
         print('This is a Hilo game. All you have to do is pick a number from 1 to 13.')
         print('Guess if the next number is higher or lower.')
-    
+       
     def prompt_for_guess(self):
         """ Prompts the user to guess a number.
         
@@ -48,9 +51,9 @@ class Game:
     
         """
         user_input = input('Is the the next card higher or lower? [h/l]: ')
-        return user_input
+        self.is_playing = (user_input == 'y')
     #check_guess(guess, current_card.value, next_card.value)
-    def check_guess(self,guess, current_card_value, next_card_value):
+    def check_guess(self):
         """Check to see if the player win or lost     
 
         Args:
@@ -59,22 +62,33 @@ class Game:
             current_card_value : the value of the current card
             next_card_value : the value of the next card
 
-        """    
-        if guess == 'h'.lower and next_card_value > current_card_value:
+        """   
+        if not self.is_playing:
+            return
+        guess = self.is_playing
+        current_card = self.current_card.value
+        next_card = self.next_card.value
+        
+        self.check_guess = guess
+        if guess == 'h'.lower and next_card > current_card:
             return True
-        elif guess == 'l'.lower and next_card_value < current_card_value:
+        elif guess == 'l'.lower and next_card < current_card:
             return True
         else:
             return False
      
     
-    def update_score(self, check_guess_result):
+    def update_score(self):
         """Updates the score points
 
         Args:
             self (Game): an instance of Game.
             guess: Uses guess result to update the score
         """
+        if not self.is_playing:
+            return
+        check_guess_result = ''
+        self.total_score =+ self.score
         if check_guess_result == True:
             self.score = 100
         else: 
