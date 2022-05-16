@@ -55,7 +55,7 @@ class Playing:
     User will confirm with either a Y if they still want to play again or N if they dont want to continue playing
 
     """
-        self.currentCard = self.nextCard
+        self.currentCard = self.nextCard  # Previous random card becomes the new current card
         self.play_Again = input("Play again? [y/n] ").upper()
         if self.play_Again != "Y":
             self.ContinuePlaying = False
@@ -83,7 +83,7 @@ class Playing:
             self.nextCard = self.theCard.drawCard()
 
             # The random card is displayed here
-            print(f"The card is {self.nextCard}")
+            print(f"The next card is {self.nextCard}")
 
             Playing.scoringSystem(self)  # New score is generated and displayed
             Playing.playAgain(self)
